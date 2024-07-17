@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mirror.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.mirror.pojo.User">
+            <id property="userId" column="user_id"/>
+            <result property="username" column="user_name"/>
+            <result property="password" column="pass_word"/>
+            <result property="email" column="email"/>
+            <result property="created" column="created"/>
+            <result property="lastModified" column="last_modified"/>
+    </resultMap>
+    <insert id="register" parameterType="com.mirror.pojo.User">
+        insert into user(user_name,pass_word,email,created,last_modified) values (#{username},#{password},#{email},now(),now())
+    </insert>
+    <select id="Login" resultType="java.lang.String">
+        select pass_word from user where user_name = #{userName}
+    </select>
+    <select id="queryInfo" resultType="com.mirror.vo.UserVo">
+        select user_name,pass_word,email from user where user_name = #{userName}
+    </select>
+    <select id="queryUidByName" resultType="java.lang.Integer">
+        select user_id from user where user_name = #{userName}
+    </select>
+    <select id="getNameById" resultType="java.lang.String">
+        select user_name from user where user_id = #{userId}
+    </select>
+
+</mapper>
